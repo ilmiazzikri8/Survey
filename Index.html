@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey Tentang Diriku 💗</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+      background: linear-gradient(135deg, #ffd6ec, #cfefff);
+      overflow-x: hidden;
+    }
+
+    .bubble {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: 0.45;
+      z-index: -1;
+      animation: floating 6s ease-in-out infinite;
+    }
+
+    .bubble1 {
+      width: 180px;
+      height: 180px;
+      background: #ffacd6;
+      top: 5%;
+      left: 5%;
+    }
+
+    .bubble2 {
+      width: 150px;
+      height: 150px;
+      background: #9ddfff;
+      bottom: 8%;
+      right: 8%;
+      animation-delay: 1s;
+    }
+
+    @keyframes floating {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(15px);
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(100, 90, 130, 0.18);
+      border: 2px solid rgba(255,255,255,0.8);
+      overflow: hidden;
+    }
+
+    .top-title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .top-title h1 {
+      color: #ff5da2;
+      font-size: 31px;
+      margin-bottom: 8px;
+    }
+
+    .top-title p {
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .bear {
+      position: absolute;
+      font-size: 58px;
+      z-index: 5;
+      user-select: none;
+      pointer-events: none;
+      animation: bearFloat 3s ease-in-out infinite;
+    }
+
+    .bear-brown {
+      top: 10px;
+      left: 15px;
+    }
+
+    .bear-white {
+      top: 12px;
+      right: 15px;
+      animation-delay: .7s;
+    }
+
+    @keyframes bearFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(-4deg);
+      }
+
+      50% {
+        transform: translateY(-7px) rotate(4deg);
+      }
+    }
+
+    .progress-box {
+      margin-bottom: 22px;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      color: #777;
+      font-size: 13px;
+    }
+
+    .progress {
+      height: 10px;
+      background: #edf1f7;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff83ba, #73cfff);
+      border-radius: 20px;
+      transition: width .5s ease;
+    }
+
+    .question-box {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .category {
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 20px;
+      background: #ffe0ef;
+      color: #ff4e96;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .question {
+      font-size: 23px;
+      color: #333;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+    }
+
+    .option {
+      width: 100%;
+      border: none;
+      padding: 16px 18px;
+      border-radius: 17px;
+      background: #f8fbff;
+      border: 2px solid #e8edf5;
+      cursor: pointer;
+      font-size: 15px;
+      color: #3d4652;
+      text-align: left;
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        border-color .25s ease;
+    }
+
+    .option:hover {
+      transform: translateY(-3px);
+      background: #eef9ff;
+      border-color: #9fddff;
+      box-shadow: 0 8px 18px rgba(120, 190, 230, 0.18);
+    }
+
+    .option:active {
+      transform: scale(.97);
+    }
+
+    .option.correct {
+      background: #dffbea;
+      border-color: #4bd38a;
+      color: #16814c;
+      animation: correctPop .4s ease;
+    }
+
+    .option.wrong {
+      background: #ffe0e8;
+      border-color: #ff6d8f;
+      color: #c93457;
+      animation: shake .4s ease;
+    }
+
+    @keyframes correctPop {
+      0% { transform: scale(.95); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      50% { transform: translateX(8px); }
+      75% { transform: translateX(-5px); }
+    }
+
+    .message {
+      text-align: center;
+      min-height: 28px;
+      margin-top: 18px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .correct-msg {
+      color: #16a05e;
+    }
+
+    .wrong-msg {
+      color: #e24a68;
+    }
+
+    .next-btn {
+      display: none;
+      width: 100%;
+      border: none;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, #ff78b5, #6dcfff);
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .25s ease;
+      box-shadow: 0 8px 18px rgba(255, 120, 181, .2);
+    }
+
+    .next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(100, 190, 240, .25);
+    }
+
+    .result {
+      display: none;
+      text-align: center;
+      animation: fadeIn .6s ease;
+    }
+
+    .result .emoji {
+      font-size: 70px;
+      margin-bottom: 10px;
+    }
+
+    .result h2 {
+      color: #ff5d9f;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .score {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    /* Tombol WhatsApp */
+    .whatsapp-btn {
+      display: block;
+      width: 100%;
+      border: none;
+      padding: 14px 18px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, #25D366, #1ebe5d);
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: .25s ease;
+      box-shadow: 0 8px 18px rgba(37, 211, 102, .2);
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(37, 211, 102, .25);
+    }
+
+    .whatsapp-btn:active {
+      transform: scale(.97);
+    }
+
+    .mager-text {
+      margin-top: 9px;
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .heart {
+      position: fixed;
+      font-size: 18px;
+      animation: heartFloat 5s linear infinite;
+      opacity: .65;
+      pointer-events: none;
+    }
+
+    @keyframes heartFloat {
+      from {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+
+      30% {
+        opacity: .7;
+      }
+
+      to {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .top-title h1 {
+        font-size: 25px;
+      }
+
+      .question {
+        font-size: 20px;
+      }
+
+      .bear {
+        font-size: 45px;
+      }
+
+      .whatsapp-btn {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bubble bubble1"></div>
+  <div class="bubble bubble2"></div>
+
+  <div class="heart" style="left:10%; animation-delay:0s;">💗</div>
+  <div class="heart" style="left:30%; animation-delay:2s;">💙</div>
+  <div class="heart" style="left:55%; animation-delay:1s;">💗</div>
+  <div class="heart" style="left:80%; animation-delay:3s;">💙</div>
+
+  <div class="container">
+
+    <div class="bear bear-brown">🧸</div>
+    <div class="bear bear-white">🐻‍❄️</div>
+
+    <div class="top-title">
+      <h1>🌷 Survey Seberapa Tahu Kamu Tentang Ilmi 🌷</h1>
+      <p>Seberapa kenal kamu Tentang Ketua Kelas?</p>
+    </div>
+
+    <div class="progress-box">
+      <div class="progress-text">
+        <span id="questionNumber">Pertanyaan 1</span>
+        <span id="progressPercent">0%</span>
+      </div>
+
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <div id="quiz">
+
+      <div class="question-box">
+        <div class="category" id="category">🍔 Makanan</div>
+
+        <div class="question" id="question">
+          Apa makanan Gweh?
+        </div>
+      </div>
+
+      <div class="options" id="options"></div>
+
+      <div class="message" id="message"></div>
+
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+        Lanjut ➜
+      </button>
+
+    </div>
+
+    <!-- HASIL -->
+
+    <div class="result" id="result">
+
+      <div class="emoji">🧸💗</div>
+
+      <h2>Survey Selesai!</h2>
+
+      <div class="score" id="scoreText">
+        Skor kamu: 0/0
+      </div>
+
+      <p style="color:#777; margin-bottom:20px;">
+        Terima kasih sudah mencoba mengenal akuh, Moga Bisa Makin Dekat Sama Gweh ☺️ 
+      </p>
+
+      <!-- WHATSAPP -->
+      <a
+        href="https://wa.me/6288213162468"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="whatsapp-btn"
+      >
+        💬 Mohon Kirim Pesan dan kesan Anonim Buat Ilmi
+      </a>
+
+      <p class="mager-text">
+        Kalo Mager 1 Kata aja Kd pp, Kada Di Save Bujuran. Ini Nomer Hanyar Jadi Aman. 
+      </p>
+
+    </div>
+
+  </div>
+
+<script>
+
+const surveyData = [
+
+  {
+    category: "🍔 Makanan Favorit",
+    question: "Apa makanan favorit Gweh?",
+    choices: [
+      "🍔 Burger",
+      "🍕 Pizza",
+      "🍜 Mie Ayam",
+      "🍚 Nasi Goreng"
+    ],
+    answer: 2
+  },
+
+  {
+    category: "🎮 Game Favorit",
+    question: "Game yang paling rancak aku maini?",
+    choices: [
+      "🎮 Mobile Legends",
+      "🏴‍☠️ Blox Fruits",
+      "⚔️ Free Fire",
+      "🧱 Minecraft"
+    ],
+    answer: 0
+  },
+
+  {
+    category: "⚽ Hobi",
+    question: "Apa hobi Akuh?",
+    choices: [
+      "🎨 Menggambar",
+      "⚾ Main Voli",
+      "🎸 Lari Dari Kenyataan",
+      "📚 Membaca"
+    ],
+    answer: 3
+  },
+
+  {
+    category: "🎵 Musik",
+    question: "Ngaran Lagu Yg Paling Aku Katujui?",
+    choices: [
+      "🌸 Terpikat Senyummu",
+      "✉️ Surat Cinta Untuk Starla",
+      "🎼 Dinda",
+      "🎤 Suka Sama Kamu"
+    ],
+    answer: 1
+  },
+
+  {
+    category: "🌙 Kebiasaan",
+    question: "Apa kebiasaanku?",
+    choices: [
+      "📱 Main HP",
+      "😱 Mengganggu Kawan",
+      "⚽ Belajar",
+      "😴 Tidur"
+    ],
+    answer: 1
+  },
+
+  {
+    category: "💖 Kepribadian",
+    question: "Tebak Vibes Yg Gwe Suka",
+    choices: [
+      "🌧️ Hujan + Dalam Rumah",
+      "☀️ Panas + AC",
+      "❄️ Dingin + Selimut",
+      "🌪️ Berangin + Diluar Ruangan"
+    ],
+    answer: 0
+  },
+
+  {
+    category: "🎨 Warna",
+    question: "My paporit kolor 😂?",
+    choices: [
+      "💗 Pink",
+      "💙 Biru",
+      "🖤 Hitam",
+      "🩶 Abu"
+    ],
+    answer: 3
+  },
+
+  {
+    category: "🐻 Fun Fact",
+    question: "Aku lebih suka...",
+    choices: [
+      "😴 Kamuhh",
+      "🐱 Kucing",
+      "🦚 Merak",
+      "🐰 Kelinci"
+    ],
+    answer: 1
+  }
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+const questionElement = document.getElementById("question");
+const categoryElement = document.getElementById("category");
+const optionsElement = document.getElementById("options");
+const messageElement = document.getElementById("message");
+const nextButton = document.getElementById("nextBtn");
+const progressBar = document.getElementById("progressBar");
+const questionNumber = document.getElementById("questionNumber");
+const progressPercent = document.getElementById("progressPercent");
+
+function loadQuestion() {
+
+  answered = false;
+
+  const data = surveyData[currentQuestion];
+
+  categoryElement.textContent = data.category;
+  questionElement.textContent = data.question;
+
+  optionsElement.innerHTML = "";
+  messageElement.textContent = "";
+  messageElement.className = "message";
+  nextButton.style.display = "none";
+
+  questionNumber.textContent =
+    `Pertanyaan ${currentQuestion + 1} / ${surveyData.length}`;
+
+  const percent =
+    Math.round((currentQuestion / surveyData.length) * 100);
+
+  progressPercent.textContent = percent + "%";
+  progressBar.style.width = percent + "%";
+
+  data.choices.forEach((choice, index) => {
+
+    const button = document.createElement("button");
+
+    button.className = "option";
+    button.textContent = choice;
+
+    button.onclick = () =>
+      checkAnswer(index, button);
+
+    optionsElement.appendChild(button);
+
+  });
+}
+
+function checkAnswer(selectedIndex, selectedButton) {
+
+  if (answered) return;
+
+  answered = true;
+
+  const correctIndex =
+    surveyData[currentQuestion].answer;
+
+  const allButtons =
+    document.querySelectorAll(".option");
+
+  if (selectedIndex === correctIndex) {
+
+    score++;
+
+    selectedButton.classList.add("correct");
+
+    messageElement.textContent =
+      "✨ Nahh Itu Seputar Info Tentang Gweh Ya💗";
+
+    messageElement.className =
+      "message correct-msg";
+
+  } else {
+
+    selectedButton.classList.add("wrong");
+
+    allButtons[correctIndex]
+      .classList.add("correct");
+
+    messageElement.textContent =
+      "💭 Mun Salah, Ingati Yg Bujurnya 💙";
+
+    messageElement.className =
+      "message wrong-msg";
+  }
+
+  allButtons.forEach(button => {
+    button.disabled = true;
+    button.style.cursor = "default";
+  });
+
+  nextButton.style.display = "block";
+}
+
+function nextQuestion() {
+
+  currentQuestion++;
+
+  if (currentQuestion >= surveyData.length) {
+
+    showResult();
+
+  } else {
+
+    loadQuestion();
+
+  }
+}
+
+function showResult() {
+
+  document.getElementById("quiz")
+    .style.display = "none";
+
+  document.getElementById("result")
+    .style.display = "block";
+
+  progressBar.style.width = "100%";
+  progressPercent.textContent = "100%";
+
+  document.getElementById("scoreText").textContent =
+    `Skor kamu: ${score} / ${surveyData.length} 💕`;
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
